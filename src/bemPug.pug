@@ -1,0 +1,87 @@
+-
+  const bemPug = {
+    blocks: [],
+    modifiers:[],
+    
+    addBlockName: function(name){
+      this.blocks.push(name);
+    },
+    
+    removeBlock:function(block){
+      if(block.type=='block')
+        this.blocks.pop(block.name);
+    },
+    
+    addMod:function(comp,location,mods){
+      this.modifiers.push({comp,location,mods});
+    },
+    
+    createClassName: function(name,data,type){
+       var className = '';
+       
+       this.initialMods = (name) => {
+        var result = '';
+        
+        if(data.mods!=null)
+          result =' ' + data.mods
+          .split(' ')
+          .map(item =>{return `${name}_${item}`})
+          .join(' ');
+          
+        return result;
+       };
+       
+       this.addedMods = (compName) => {
+        var result = '';
+        
+        for(var mkey in this.modifiers){
+          let count = 0;
+          
+          if(this.modifiers[mkey].comp==name){
+            for(var bkey in this.blocks){
+              if(this.blocks[bkey]==this.modifiers[mkey].location[count])
+                count++;
+              if(!this.modifiers[mkey].location[count])
+                result =' ' + this.modifiers[mkey].mods
+                .split(' ')
+                .map(item => {return `${compName}_${item}`})
+                .join(' ');
+            }
+            break;
+          }
+        }
+        
+        return result;
+       };
+       
+       if(type=='block')
+        className = `${name}${this.initialMods(name)}${this.addedMods(name)}`;
+       else{
+        var elemName = `${this.blocks[this.blocks.length-1]}__${name}`;
+        className = `${elemName}${this.initialMods(elemName)}${this.addedMods(elemName)}`;
+       }
+       return className;
+    },
+    Block: function(tag,name,data,attributes){
+      this.tag = tag;
+      this.name = name;
+      this.isElement = !!attributes.isElement;
+      this.attributes = attributes;
+      this.type = this.isElement? 'element' : 'block';
+      if(this.isElement) delete this.attributes.isElement;
+      if(this.type=='block')
+        bemPug.addBlockName(name);
+      if(data==null) data={};
+      this.class = bemPug.createClassName(name,data,this.type);
+    }
+  }
+
+
+mixin e(tag,name,data)
+  +b(tag,name,data)(isElement=true)&attributes(attributes): block
+
+mixin b(tag,name,data)
+  - var Block = new bemPug.Block(tag,name,data,attributes);
+  #{Block.tag}(class=Block.class)&attributes(Block.attributes): block
+  
+  - bemPug.removeBlock(Block);
