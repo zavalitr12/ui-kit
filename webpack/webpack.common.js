@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
 
 module.exports = {
     entry: {
@@ -26,7 +27,7 @@ module.exports = {
                 ]
             },
             {
-                test:/\.(woff|woff2|eot|ttf|otf|svg)$/,
+                test:/\.(png|woff|woff2|eot|ttf|otf|svg)$/,
                 use:[
                     'file-loader'
                 ]
@@ -40,6 +41,10 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css'
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
         })
     ]
 }

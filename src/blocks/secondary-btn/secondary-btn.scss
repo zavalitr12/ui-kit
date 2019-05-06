@@ -1,0 +1,28 @@
+.btn.secondary-btn{
+    width:95px;
+    height:40px;
+    color: $primary-color;
+    background: #FFFFFF;
+    opacity: 1;
+
+    padding: 0px;
+
+    &:hover{
+        background: #FFFFFF;
+    }
+    &::before{
+        content:'';
+        position: absolute;
+        z-index: -1;
+        top: -2px;
+        right: -2px;
+        bottom: -2px;
+        left: -2px;
+        border-radius: 22px;
+        background: $primary-gradient;
+        opacity: 1;
+    }
+    &:hover::before{
+        opacity: 0.5;
+    }
+}

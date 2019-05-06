@@ -1,6 +1,16 @@
 include bemPug.pug
-include ./blocks/like-button/like-button.pug
 include ./blocks/text-field/text-field.pug
+include ./blocks/btn/btn.pug
+include ./blocks/secondary-btn/secondary-btn.pug
+include ./blocks/material-icons/material-icons.pug
+include ./blocks/like-btn/like-btn.pug
+include ./blocks/rate-group/rate-group.pug
 
 body
-    +text-field('Email')
+    //- bemPug.addMod('material-icons',[],'position_right')
+    //- bemPug.addMod('secondary-btn',[],'size_small')
+    //- bemPug.addMod('material-icons',[],'size_small')
+    //- bemPug.addMod('material-icons',[],'width_50pr')
+    //- bemPug.addMod('btn',[],'bgn_secondary-gradient')
+    
+    +rate-group()

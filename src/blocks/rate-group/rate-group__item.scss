@@ -1,0 +1,8 @@
+.btn.rate-group__item{
+    position: relative;
+    padding: 0;
+    
+    &:hover::before{
+        opacity: 1;
+    }
+}

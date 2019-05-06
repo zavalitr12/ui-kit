@@ -1,0 +1,7 @@
+
+
+mixin rate-group(mods='', mixs='')
+    +b('div','rate-group',{mods: mods, mixs: mixs})
+        - for(var i=1; i<=5;i++)
+            +btn('button','','theme_text-only text-color_primary-color','rate-group__item')(id=i)
+                +material-icons('star_border')

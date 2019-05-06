@@ -1,0 +1,13 @@
+- bemPug.addMix('secondary-btn',[],'btn')
+
+mixin secondary-btn(type,text,mods='',mixs='')
+    if(type=='submit')
+      +b('input','secondary-btn',{mods:mods,mixs:mixs})(type='submit' value=`${text}`,{mods:mods})&attributes(attributes)
+    if(type=='button')
+      +b('button','secondary-btn',{mods:mods,mixs:mixs})&attributes(attributes)
+        = text
+        block
+    if(type=='link')
+      +b('a','secondary-btn',{mods:mods,mixs:mixs})&attributes(attributes)
+        = text
+        block

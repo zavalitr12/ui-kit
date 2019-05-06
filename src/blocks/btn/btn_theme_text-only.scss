@@ -1,0 +1,10 @@
+.btn.btn_theme_text-only{
+    background: none;
+    width: auto;
+    height: auto;
+    color: $dark-shade-50;
+    &:hover{
+        opacity: 1;
+        background: none;
+    }
+}

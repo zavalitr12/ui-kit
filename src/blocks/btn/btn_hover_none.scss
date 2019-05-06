@@ -1,0 +1,6 @@
+.btn.btn_hover_none{
+    
+    &:hover::before{
+        opacity: 1;
+    }
+}

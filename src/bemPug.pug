@@ -2,11 +2,12 @@
   const bemPug = {
     blocks: [],
     modifiers:[],
+    mixs:[],
     
     addBlockName: function(name){
       this.blocks.push(name);
     },
-    
+
     removeBlock:function(block){
       if(block.type=='block')
         this.blocks.pop(block.name);
@@ -15,22 +16,45 @@
     addMod:function(comp,location,mods){
       this.modifiers.push({comp,location,mods});
     },
+
+    addMix: function(comp,location,mixs){
+      this.mixs.push({comp:comp,location:location,mixs:mixs});
+    },
     
     createClassName: function(name,data,type){
        var className = '';
        
-       this.initialMods = (name) => {
+       this.initialM = (name) => {
         var result = '';
-        
-        if(data.mods!=null)
+
+        if(data.mods!='')
           result =' ' + data.mods
           .split(' ')
           .map(item =>{return `${name}_${item}`})
           .join(' ');
-          
+
+        result = data.mixs!=''? result + ' ' + data.mixs : result;
+
         return result;
        };
        
+      this.addedMixs = (compName) => {
+          var result ='';
+        for(var mkey in this.mixs){
+          let count = 0;
+          if(this.mixs[mkey].comp==name){
+            for(var bkey in this.blocks){
+              if(this.blocks[bkey]==this.mixs[mkey].location[count])
+                count++;
+              }
+              if(count==this.mixs[mkey].location.length||this.mixs[mkey].location.length==0){
+                result = result + ` ${this.mixs[mkey].mixs}`;
+            }
+          }
+        }
+         return result;
+       };
+
        this.addedMods = (compName) => {
         var result = '';
         
@@ -41,13 +65,12 @@
             for(var bkey in this.blocks){
               if(this.blocks[bkey]==this.modifiers[mkey].location[count])
                 count++;
-              if(!this.modifiers[mkey].location[count])
-                result =' ' + this.modifiers[mkey].mods
+            }
+              if(count==this.modifiers[mkey].location.length||this.modifiers[mkey].location.length==0)
+                result =`${result} `+`${this.modifiers[mkey].mods}`
                 .split(' ')
                 .map(item => {return `${compName}_${item}`})
                 .join(' ');
-            }
-            break;
           }
         }
         
@@ -55,10 +78,10 @@
        };
        
        if(type=='block')
-        className = `${name}${this.initialMods(name)}${this.addedMods(name)}`;
+        className = `${name}${this.initialM(name)}${this.addedMods(name)}${this.addedMixs(name)}`;
        else{
         var elemName = `${this.blocks[this.blocks.length-1]}__${name}`;
-        className = `${elemName}${this.initialMods(elemName)}${this.addedMods(elemName)}`;
+        className = `${elemName}${this.initialM(elemName)}${this.addedMods(elemName)}${this.addedMixs(name)}`;
        }
        return className;
     },

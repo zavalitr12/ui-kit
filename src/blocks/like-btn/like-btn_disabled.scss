@@ -1,0 +1,10 @@
+.like-btn.like-btn_disabled{
+    color: $dark-shade-25;
+    .like-btn__icon{
+        color: $dark-shade-25
+    }
+
+    &::before{
+        background: $dark-shade-25;
+    }
+}
