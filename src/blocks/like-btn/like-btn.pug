@@ -1,3 +1,4 @@
 mixin like-btn(text,mods='',mixs='')
-    +b('button','like-btn',{mixs: `${mixs}`+'secondary-btn btn',mods: `${mods}`+'disabled'})= text
+    +b('button','like-btn',{mixs: `${mixs}`+'secondary-btn btn',mods: `${mods}`+'disabled'})
+        +e('span','likes',{mixs:mixs,mods:mods})= text
         +material-icons('favorite_border','','like-btn__icon')
