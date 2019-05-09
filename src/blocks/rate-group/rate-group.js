@@ -1,9 +1,27 @@
-$('.rate-group__item').click(function(e){
-    
-    if($(`.rate-group__item#${this.id}`).children('i').text()=='star_border')
-        for(var i=1; i<=this.id;i++)
-            $(`.rate-group__item#${i}`).children('i').text('star')
+
+
+$('.rate-group__item').click(function(){
+
+    var rate = $(this).data('value');
+
+    var grRate = $('.rate-group').attr('data-rate');
+
+    if(rate==grRate){
+
+        for(var i=0; i<=rate;i++)
+            $(`.rate-group__item#${i}`).children().text('star_border');
+
+        rate = 0;
+    }
     else
-        for(var i=5; i>this.id;i--)
-            $(`.rate-group__item#${i}`).children('i').text('star_border')
-});
+        for(var i=0; i <= 5; i++){
+            if(rate>=i)
+                $(`.rate-group__item#${i}`).children().text('star');
+            else
+                $(`.rate-group__item#${i}`).children().text('star_border');
+        }
+
+    $('.rate-group').attr('data-rate',rate);
+})
+
+
