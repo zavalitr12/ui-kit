@@ -1,0 +1,7 @@
+.checkbox-btn__checkbox{
+    display: none;
+}
+
+.checkbox-btn__checkbox:checked + .checkbox-btn__checkmarkcontainer{
+    border-color: $primary-color;
+}

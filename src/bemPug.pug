@@ -27,13 +27,13 @@
        this.initialM = (name) => {
         var result = '';
 
-        if(data.mods!='')
+        if(data.mods!=''&&data.mods!=null)
           result =' ' + data.mods
           .split(' ')
           .map(item =>{return `${name}_${item}`})
           .join(' ');
 
-        result = data.mixs!=''? result + ' ' + data.mixs : result;
+        result = data.mixs!=''&&data.mixs!=null? result + ' ' + data.mixs : result;
 
         return result;
        };
