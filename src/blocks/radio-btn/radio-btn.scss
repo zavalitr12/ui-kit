@@ -1,0 +1,15 @@
+
+.radio-btn{
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    padding-left: 30px;
+
+    font-family: Montserrat-Regular;
+    font-size: 14px;
+    line-height: 19px;
+    color: $dark-shade-50;
+}
+
+@import '__radio';
+@import '__input';

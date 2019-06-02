@@ -1,0 +1,6 @@
+mixin radio-btn(text,checked,mods='',mixs='')
+    +b('label','radio-btn')= text
+        if(checked)
+            +e('input','input')(type='radio' name="radio-group" checked)
+        +e('input','input')(type='radio' name="radio-group")
+        +e('div','radio')
